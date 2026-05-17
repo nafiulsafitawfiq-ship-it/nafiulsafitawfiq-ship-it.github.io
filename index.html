@@ -1,23 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nafiul204AI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0d0f14;
-      --surface: #14181f;
-      --border: #232834;
-      --accent: #e8b86d;
-      --accent2: #c97d3a;
+      --bg: #0c0e12;
+      --surface: #13161d;
+      --border: #1f2330;
+      --gold: #e8b86d;
+      --gold2: #c97d3a;
       --text: #e8e2d9;
-      --muted: #7a8094;
-      --glow: rgba(232, 184, 109, 0.15);
+      --muted: #6b7385;
     }
 
     body {
@@ -28,434 +26,385 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 16px 60px;
-      position: relative;
-      overflow-x: hidden;
+      padding: 0 16px 80px;
     }
 
-    /* Background grain texture */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.6;
-    }
-
-    /* Ambient glow orb */
-    body::after {
-      content: '';
-      position: fixed;
-      top: -120px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 700px;
-      height: 400px;
-      background: radial-gradient(ellipse, rgba(232,184,109,0.08) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
+    /* Top glow */
+    .glow-top {
+      position: fixed; top: -150px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, rgba(232,184,109,0.07) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
     }
 
     header {
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
       text-align: center;
-      padding: 52px 0 36px;
+      padding: 56px 0 40px;
+      animation: fadeDown 0.7s ease forwards;
     }
 
-    .logo-badge {
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .badge {
       display: inline-block;
-      font-family: 'Lora', serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid rgba(232,184,109,0.3);
-      padding: 6px 18px;
-      border-radius: 2px;
-      margin-bottom: 20px;
-      background: rgba(232,184,109,0.05);
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(232,184,109,0.25);
+      padding: 6px 20px; border-radius: 2px;
+      background: rgba(232,184,109,0.04);
+      margin-bottom: 22px;
     }
 
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 7vw, 4rem);
-      font-weight: 700;
-      letter-spacing: -1px;
-      line-height: 1.1;
-      background: linear-gradient(135deg, #f0d9a8 0%, var(--accent) 50%, #c97d3a 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: clamp(2.6rem, 8vw, 4.2rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #f5e0b0 0%, #e8b86d 45%, #c97d3a 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
+      line-height: 1.1; letter-spacing: -1px;
     }
 
     .tagline {
-      margin-top: 12px;
-      font-size: 14px;
-      color: var(--muted);
-      font-style: italic;
-      letter-spacing: 0.5px;
+      margin-top: 14px; font-size: 14px;
+      color: var(--muted); font-style: italic; letter-spacing: 0.4px;
     }
 
-    .divider {
-      width: 60px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      margin: 28px auto 0;
+    .rule {
+      width: 50px; height: 1px; margin: 26px auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
     }
 
-    /* Main container */
-    .container {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 760px;
+    /* Container */
+    .wrap {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 740px;
+      animation: fadeUp 0.7s 0.15s ease both;
     }
 
-    /* Input area */
-    .input-section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 28px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-    }
-
-    .input-label {
-      display: block;
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 14px;
-      font-family: 'Lora', serif;
-    }
-
-    .input-row {
-      display: flex;
-      gap: 12px;
-      align-items: flex-end;
-    }
-
-    textarea {
-      flex: 1;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: 'Lora', serif;
-      font-size: 15px;
-      padding: 14px 16px;
-      resize: none;
-      height: 60px;
-      outline: none;
-      transition: border-color 0.25s, box-shadow 0.25s;
-      line-height: 1.6;
-    }
-
-    textarea::placeholder { color: var(--muted); font-style: italic; }
-
-    textarea:focus {
-      border-color: rgba(232,184,109,0.5);
-      box-shadow: 0 0 0 3px var(--glow);
-    }
-
-    .send-btn {
-      flex-shrink: 0;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border: none;
-      border-radius: 8px;
-      color: #1a1108;
-      font-family: 'Playfair Display', serif;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      padding: 0 24px;
-      height: 60px;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(232,184,109,0.2);
-      white-space: nowrap;
-    }
-
-    .send-btn:hover:not(:disabled) {
-      opacity: 0.9;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 28px rgba(232,184,109,0.35);
-    }
-
-    .send-btn:active:not(:disabled) { transform: translateY(0); }
-    .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-    /* Output area */
-    .output-section {
-      display: none;
-      animation: fadeSlideUp 0.5s ease forwards;
-    }
-
-    .output-section.visible { display: block; }
-
-    @keyframes fadeSlideUp {
+    @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .output-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
+    /* Input card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.5);
     }
 
-    .output-label {
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
+    .card-label {
+      font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
     }
 
+    .row {
+      display: flex; gap: 12px; align-items: stretch;
+      flex-wrap: wrap;
+    }
+
+    textarea {
+      flex: 1; min-width: 200px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      font-family: 'Lora', serif; font-size: 15px;
+      padding: 14px 16px; resize: none; height: 64px;
+      outline: none; line-height: 1.6;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    textarea::placeholder { color: var(--muted); font-style: italic; }
+    textarea:focus {
+      border-color: rgba(232,184,109,0.4);
+      box-shadow: 0 0 0 3px rgba(232,184,109,0.08);
+    }
+
+    .btn {
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      border: none; border-radius: 9px;
+      color: #1c1000; font-family: 'Playfair Display', serif;
+      font-weight: 700; font-size: 14px;
+      padding: 0 26px; min-height: 64px;
+      cursor: pointer; white-space: nowrap;
+      box-shadow: 0 4px 22px rgba(232,184,109,0.22);
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn:hover:not(:disabled) {
+      opacity: 0.88; transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(232,184,109,0.35);
+    }
+    .btn:active:not(:disabled) { transform: translateY(0); }
+    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* Loading */
+    .loading {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--muted); font-style: italic; font-size: 14px;
+      padding: 14px 4px;
+    }
+    .dots { display: flex; gap: 6px; }
+    .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--gold);
+      animation: bounce 1.1s ease infinite;
+    }
+    .dot:nth-child(2) { animation-delay: 0.18s; }
+    .dot:nth-child(3) { animation-delay: 0.36s; }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); opacity: 0.35; }
+      50%      { transform: translateY(-7px); opacity: 1; }
+    }
+
+    /* Error */
+    .error-box {
+      background: rgba(201,90,58,0.08);
+      border: 1px solid rgba(201,90,58,0.3);
+      border-radius: 9px; padding: 14px 18px;
+      color: #e07a5a; font-size: 14px; margin-bottom: 20px;
+    }
+
+    /* Output */
+    .out-header {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 14px;
+    }
+    .out-label {
+      font-size: 10px; letter-spacing: 3.5px;
+      text-transform: uppercase; color: var(--gold);
+    }
     .copy-btn {
       background: transparent;
       border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--muted);
-      font-family: 'Lora', serif;
-      font-size: 12px;
-      padding: 6px 14px;
-      cursor: pointer;
+      border-radius: 6px; color: var(--muted);
+      font-family: 'Lora', serif; font-size: 12px;
+      padding: 6px 16px; cursor: pointer;
       transition: all 0.2s;
     }
+    .copy-btn:hover { border-color: var(--gold); color: var(--gold); }
 
-    .copy-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .output-card {
+    .out-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 12px;
-      padding: 32px 36px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-      position: relative;
-      overflow: hidden;
+      border-left: 3px solid var(--gold);
+      border-radius: 14px; padding: 34px 38px;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+      position: relative; overflow: hidden;
+      animation: fadeUp 0.4s ease forwards;
     }
-
-    .output-card::before {
+    .out-card::before {
       content: '"';
-      position: absolute;
-      top: 10px;
-      left: 20px;
-      font-family: 'Playfair Display', serif;
-      font-size: 80px;
-      color: rgba(232,184,109,0.07);
-      line-height: 1;
-      pointer-events: none;
+      position: absolute; top: 6px; left: 18px;
+      font-family: 'Playfair Display', serif; font-size: 90px;
+      color: rgba(232,184,109,0.06); line-height: 1; pointer-events: none;
     }
 
-    #output-text {
-      font-size: 16px;
-      line-height: 1.9;
-      color: var(--text);
-      font-style: italic;
-      white-space: pre-wrap;
+    .chip {
+      display: inline-block;
+      background: rgba(232,184,109,0.07);
+      border: 1px solid rgba(232,184,109,0.18);
+      border-radius: 20px; padding: 5px 14px;
+      font-size: 12px; color: var(--gold);
+      margin-bottom: 18px; letter-spacing: 0.3px;
     }
 
-    /* Typing cursor */
+    #para {
+      font-size: 16px; line-height: 1.95;
+      color: var(--text); font-style: italic; margin: 0;
+    }
+
+    /* Cursor blink */
     .cursor {
-      display: inline-block;
-      width: 2px;
-      height: 1.1em;
-      background: var(--accent);
-      margin-left: 2px;
+      display: inline-block; width: 2px; height: 1em;
+      background: var(--gold); margin-left: 2px;
       vertical-align: text-bottom;
-      animation: blink 0.8s step-end infinite;
+      animation: blink 0.75s step-end infinite;
     }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    /* Loading dots */
-    .loading {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      color: var(--muted);
-      font-size: 14px;
-      font-style: italic;
-      padding: 20px 0;
-    }
-
-    .dot {
-      width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: bounce 1.2s ease infinite;
-    }
-    .dot:nth-child(2) { animation-delay: 0.2s; }
-    .dot:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); opacity: 0.4; }
-      50% { transform: translateY(-6px); opacity: 1; }
-    }
-
-    /* Query chip shown above result */
-    .query-chip {
-      display: inline-block;
-      background: rgba(232,184,109,0.08);
-      border: 1px solid rgba(232,184,109,0.2);
-      border-radius: 20px;
-      padding: 5px 14px;
-      font-size: 12px;
-      color: var(--accent);
-      letter-spacing: 0.3px;
-      margin-bottom: 20px;
-    }
-
-    /* Footer */
     footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      margin-top: 50px;
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 1px;
+      position: relative; z-index: 1; text-align: center;
+      margin-top: 60px; font-size: 12px;
+      color: var(--muted); letter-spacing: 1px;
     }
+    footer span { color: var(--gold); }
 
-    footer span { color: var(--accent); }
-
-    @media (max-width: 520px) {
-      .input-row { flex-direction: column; }
-      .send-btn { width: 100%; }
-      .output-card { padding: 24px 20px; }
+    @media (max-width: 500px) {
+      .row { flex-direction: column; }
+      .btn { min-height: 52px; }
+      .out-card { padding: 24px 20px; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo-badge">✦ AI Writer</div>
-    <h1>Nafiul204AI</h1>
-    <p class="tagline">Ask anything — receive a beautifully written paragraph.</p>
-    <div class="divider"></div>
-  </header>
+<div class="glow-top"></div>
 
-  <div class="container">
-    <div class="input-section">
-      <label class="input-label">✦ Your Topic</label>
-      <div class="input-row">
-        <textarea id="user-input" placeholder="e.g. How to write a tea stall…" rows="2"></textarea>
-        <button class="send-btn" id="send-btn" onclick="generate()">Generate ✦</button>
-      </div>
-    </div>
+<header>
+  <div class="badge">✦ Paragraph AI</div>
+  <h1>Nafiul204AI</h1>
+  <p class="tagline">Type any topic — get a beautifully written paragraph.</p>
+  <div class="rule"></div>
+</header>
 
-    <div class="output-section" id="output-section">
-      <div class="output-header">
-        <span class="output-label">✦ Generated Paragraph</span>
-        <button class="copy-btn" onclick="copyText()">Copy</button>
-      </div>
-      <div class="output-card">
-        <div id="query-chip" class="query-chip"></div>
-        <div id="output-text"></div>
-      </div>
+<div class="wrap">
+
+  <!-- Input -->
+  <div class="card">
+    <div class="card-label">✦ Your Topic</div>
+    <div class="row">
+      <textarea id="inp" placeholder="e.g. How to write a tea stall…"></textarea>
+      <button class="btn" id="genbtn" onclick="generate()">Generate ✦</button>
     </div>
   </div>
 
-  <footer>
-    Crafted with care &nbsp;·&nbsp; <span>Nafiul204AI</span>
-  </footer>
+  <!-- Status -->
+  <div id="loading" class="loading" style="display:none">
+    <div class="dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    Writing your paragraph…
+  </div>
 
-  <script>
-    const inputEl  = document.getElementById('user-input');
-    const outputEl = document.getElementById('output-text');
-    const section  = document.getElementById('output-section');
-    const sendBtn  = document.getElementById('send-btn');
-    const chipEl   = document.getElementById('query-chip');
+  <div id="errbox" class="error-box" style="display:none"></div>
 
-    // Allow Enter to submit (Shift+Enter for newline)
-    inputEl.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); generate(); }
-    });
+  <!-- Output -->
+  <div id="outbox" style="display:none">
+    <div class="out-header">
+      <span class="out-label">✦ Generated Paragraph</span>
+      <button class="copy-btn" onclick="copyText()">Copy</button>
+    </div>
+    <div class="out-card">
+      <div id="chip" class="chip"></div>
+      <p id="para"></p>
+    </div>
+  </div>
 
-    async function generate() {
-      const topic = inputEl.value.trim();
-      if (!topic) return;
+</div>
 
-      // Show loading
-      sendBtn.disabled = true;
-      section.className = 'output-section visible';
-      chipEl.textContent = '🔍 ' + topic;
-      outputEl.innerHTML = `
-        <div class="loading">
-          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-          &nbsp; Writing your paragraph…
-        </div>`;
+<footer>Made with passion &nbsp;·&nbsp; <span>Nafiul204AI</span></footer>
 
-      try {
-        const response = await fetch('https://api.anthropic.com/v1/messages', {
+<script>
+  const inp    = document.getElementById('inp');
+  const genbtn = document.getElementById('genbtn');
+  const loading= document.getElementById('loading');
+  const errbox = document.getElementById('errbox');
+  const outbox = document.getElementById('outbox');
+  const paraEl = document.getElementById('para');
+  const chipEl = document.getElementById('chip');
+
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); generate(); }
+  });
+
+  async function generate() {
+    const topic = inp.value.trim();
+    if (!topic) return;
+
+    // Reset UI
+    genbtn.disabled = true;
+    loading.style.display = 'flex';
+    errbox.style.display = 'none';
+    outbox.style.display = 'none';
+
+    const prompt = `Write one single paragraph (80-150 words) about: "${topic}". 
+Rules: Only a paragraph, no headings, no bullet points, no lists, no intro sentence like "Here is a paragraph". Just write the paragraph directly. Make it descriptive, engaging and beautiful.`;
+
+    try {
+      // Using Hugging Face Inference API - free, no login needed for this model
+      const res = await fetch(
+        'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3',
+        {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: 'claude-sonnet-4-20250514',
-            max_tokens: 1000,
-            system: `You are Nafiul204AI, an elegant paragraph writer. 
-Your ONLY job is to write ONE single, well-crafted paragraph about any topic the user gives you.
-Rules:
-- Write ONLY a paragraph — no headings, no bullet points, no lists, no titles, no numbered items.
-- The paragraph must be fluent, descriptive, and engaging.
-- Do NOT say "Here is a paragraph" or any introduction — just write the paragraph directly.
-- Keep it between 80–150 words.
-- Write in a clear, beautiful style.`,
-            messages: [{ role: 'user', content: topic }]
+            inputs: `<s>[INST] ${prompt} [/INST]`,
+            parameters: {
+              max_new_tokens: 200,
+              temperature: 0.7,
+              return_full_text: false,
+              do_sample: true,
+            }
           })
-        });
-
-        const data = await response.json();
-        const text = data.content?.map(b => b.text || '').join('') || 'Could not generate a response. Please try again.';
-
-        // Typewriter effect
-        outputEl.innerHTML = '';
-        let i = 0;
-        const cursor = document.createElement('span');
-        cursor.className = 'cursor';
-        outputEl.appendChild(cursor);
-
-        function typeChar() {
-          if (i < text.length) {
-            outputEl.insertBefore(document.createTextNode(text[i]), cursor);
-            i++;
-            setTimeout(typeChar, 18);
-          } else {
-            cursor.remove();
-          }
         }
-        typeChar();
+      );
 
-      } catch (err) {
-        outputEl.innerHTML = '<span style="color:#c97d3a">Something went wrong. Please try again.</span>';
+      if (!res.ok) {
+        // Model might be loading — retry once after 20s
+        if (res.status === 503) {
+          errbox.textContent = '⏳ AI model is warming up (takes ~20 sec first time). Please try again in a moment!';
+          errbox.style.display = 'block';
+          loading.style.display = 'none';
+          genbtn.disabled = false;
+          return;
+        }
+        throw new Error('API error');
       }
 
-      sendBtn.disabled = false;
+      const data = await res.json();
+      let text = '';
+
+      if (Array.isArray(data) && data[0]?.generated_text) {
+        text = data[0].generated_text.trim();
+      } else if (data.generated_text) {
+        text = data.generated_text.trim();
+      }
+
+      // Clean up any leftover instruction echoes
+      text = text.replace(/^\[.*?\]/s, '').replace(/^Here is.*?:\s*/i, '').trim();
+      // Take only first paragraph
+      const firstPara = text.split(/\n\n/)[0].trim();
+      if (!firstPara) throw new Error('Empty');
+
+      loading.style.display = 'none';
+      chipEl.textContent = '🔍 ' + topic;
+      outbox.style.display = 'block';
+      typewriter(paraEl, firstPara);
+
+    } catch (e) {
+      loading.style.display = 'none';
+      errbox.textContent = '❌ Something went wrong. Please try again!';
+      errbox.style.display = 'block';
     }
 
-    function copyText() {
-      const text = outputEl.innerText;
-      if (!text) return;
-      navigator.clipboard.writeText(text).then(() => {
-        const btn = document.querySelector('.copy-btn');
-        btn.textContent = 'Copied!';
-        setTimeout(() => btn.textContent = 'Copy', 2000);
-      });
+    genbtn.disabled = false;
+  }
+
+  function typewriter(el, text) {
+    el.innerHTML = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    el.appendChild(cursor);
+    let i = 0;
+    function next() {
+      if (i < text.length) {
+        el.insertBefore(document.createTextNode(text[i++]), cursor);
+        setTimeout(next, 16);
+      } else {
+        cursor.remove();
+      }
     }
-  </script>
+    next();
+  }
+
+  function copyText() {
+    const text = paraEl.innerText;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
 </body>
-  </html>
+                                                      </html>
